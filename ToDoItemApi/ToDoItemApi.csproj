@@ -1,7 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\YFu3\Desktop\Backend\ToDoItemApi-2020-11-3-6-40-30-108\ToDoItemApi\ToDoItemApi.xml</DocumentationFile>
   </PropertyGroup>
 
 

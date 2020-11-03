@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ToDoItemApi.Models.Configuration;
+using ToDoItemApi.Services;
 
 namespace ToDoItemApi
 {
@@ -25,6 +27,15 @@ namespace ToDoItemApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var toDoListService = new ToDoListService(Configuration);
+            //services.AddSingleton<IToDoListService>(toDoListService);
+            //if (Configuration.GetValue<bool>("Services:EnableCache"))
+            //{
+            //    services.AddSingleton<IToDoListService>(new CacheService(toDoListService));
+            //}
+
+            services.Configure<GetOptions>(Configuration.GetSection("GetOptions"));
+
             services.AddControllers();
             services.AddSwaggerGen();
         }
@@ -36,15 +47,15 @@ namespace ToDoItemApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+ 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
+           // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+           // specifying the Swagger JSON endpoint.
+           app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("swagger/v1/swagger.json", "My API V1");
             });
 
             app.UseHttpsRedirection();
